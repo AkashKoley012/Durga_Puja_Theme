@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Enhanced Durga Puja 3D Experience</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="style.css" />
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <!-- Enhanced Loading Screen -->
+        <div id="loading-screen" class="loading-screen">
+            <div class="loading-content">
+                <div class="lotus-loader">
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                </div>
+                <h1 class="loading-title">Loading the divine experience...</h1>
+                <p class="loading-subtitle">Preparing the celestial celebration</p>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                    <div id="progress-text" class="progress-text">0%</div>
+                    <div id="loading-details" class="loading-details">Initializing...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header with Festival Navigation -->
+        <header class="header">
+            <div class="header-content">
+                <div class="festival-title">
+                    <span class="title-english">Divine Durga Puja Experience</span>
+                    <span class="title-bengali">শারদীয় দুর্গাপূজা</span>
+                </div>
+                <nav class="day-navigation">
+                    <button class="nav-btn active" data-day="mahalaya">মহালয়া</button>
+                    <button class="nav-btn" data-day="shasthi">ষষ্ঠী</button>
+                    <button class="nav-btn" data-day="saptami">সপ্তমী</button>
+                    <button class="nav-btn" data-day="ashtami">অষ্টমী</button>
+                    <button class="nav-btn" data-day="navami">নবমী</button>
+                    <button class="nav-btn" data-day="dashami">দশমী</button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Three.js Canvas -->
+        <div class="scene-container">
+            <canvas id="three-canvas"></canvas>
+        </div>
+
+        <!-- Wish Panel -->
+        <div id="wish-panel" class="wish-panel">
+            <div class="wish-content">
+                <h3 id="wish-day-title" class="wish-day-title">Mahalaya</h3>
+                <div id="wish-day-bengali" class="wish-day-bengali">মহালয়া</div>
+                <p id="wish-message" class="wish-message">May the divine mother descend to bless us all. Wishing you a blissful Mahalaya!</p>
+                <small id="wish-description" class="wish-description">The beginning of Devi Paksha, invoking Goddess Durga</small>
+            </div>
+        </div>
+
+        <!-- Festival Memory Gallery (Mobile Horizontal Scroll) -->
+        <div id="memory-gallery" class="memory-gallery">
+            <div class="gallery-header">
+                <h4>🌸 Festival Memories</h4>
+            </div>
+            <div class="gallery-scroll">
+                <div id="gallery-images" class="gallery-images">
+                    <!-- Images will be populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls Panel -->
+        <div class="controls-panel" id="controls-panel">
+            <button id="audio-toggle" class="control-btn" title="Toggle Background Music">
+                <span class="control-icon">🎵</span>
+            </button>
+            <div class="camera-control">
+                <button id="camera-preset" class="control-btn" title="Camera Views">
+                    <span class="control-icon">📹</span>
+                </button>
+                <div id="camera-menu" class="camera-menu hidden">
+                    <button class="camera-preset-btn" data-preset="0">Front View</button>
+                    <button class="camera-preset-btn" data-preset="1">Side View</button>
+                    <button class="camera-preset-btn" data-preset="2">Top View</button>
+                    <button class="camera-preset-btn" data-preset="3">Orbit View</button>
+                </div>
+            </div>
+            <button id="quality-toggle" class="control-btn" title="Quality Settings">
+                <span class="control-icon">⚙️</span>
+            </button>
+            <button id="fullscreen-toggle" class="control-btn" title="Fullscreen">
+                <span class="control-icon">⛶</span>
+            </button>
+        </div>
+
+        <!-- Quality Panel -->
+        <div id="quality-panel" class="quality-panel">
+            <h4>Performance Settings</h4>
+            <div class="quality-controls">
+                <label class="quality-option">
+                    <input type="radio" name="quality" value="high" checked />
+                    High Quality
+                </label>
+                <label class="quality-option">
+                    <input type="radio" name="quality" value="medium" />
+                    Medium Quality
+                </label>
+                <label class="quality-option">
+                    <input type="radio" name="quality" value="low" />
+                    Low Quality
+                </label>
+            </div>
+            <div class="petal-info">
+                <p>🌸 Flower petals are always falling</p>
+            </div>
+        </div>
+
+        <!-- Photo Modal -->
+        <div id="photo-modal" class="modal hidden">
+            <div id="modal-backdrop" class="modal-backdrop"></div>
+            <div class="modal-content">
+                <button id="modal-close" class="modal-close">&times;</button>
+                <div class="modal-body">
+                    <img id="modal-image" src="" alt="Festival Memory" />
+                    <div class="modal-wish">
+                        <h3 id="modal-wish-title">Blessed Memory</h3>
+                        <p id="modal-wish-text">Your beautiful festival moment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions">🖱️ Drag to explore • 📸 View memories • 🌸 Watch petals fall • 🎵 Toggle music • 📹 Change camera</div>
+
+        <!-- Background Audio -->
+        <audio id="background-audio" loop>
+            <source src="assets/songs/puja.mp3" type="audio/mpeg" />
+            <source src="assets/songs/puja.ogg" type="audio/ogg" />
+        </audio>
+
+        <!-- App Script -->
+        <script type="module" src="app.js"></script>
+    </body>
+</html>
