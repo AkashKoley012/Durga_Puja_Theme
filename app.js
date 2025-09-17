@@ -12,43 +12,43 @@ class EnhancedDurgaPujaApp {
                 day: "mahalaya",
                 title: "Mahalaya",
                 bengali: "মহালয়া",
-                wish: "May the divine mother descend to bless us all. Wishing you a blissful Mahalaya!",
-                description: "The beginning of Devi Paksha, invoking Goddess Durga",
+                wish: "🌸 শুভ মহালয়া 🌸 মা দুর্গার আগমনী সুরে মঙ্গলময় হোক জীবনের প্রতিটি মুহূর্ত। মা যেন তাঁর করুণাময় আশীর্বাদে তোমার জীবন ভরে দেন শান্তি, আনন্দ আর ভালোবাসায়।",
+                description: "✨ দেবী পক্ষের সূচনা, মায়ের আবাহন 🌼",
             },
             {
                 day: "shasthi",
                 title: "Shashthi",
                 bengali: "ষষ্ঠী",
-                wish: "Shubho Shasthi! May Maa Durga's divine presence fill your life with joy and prosperity.",
-                description: "The sixth day marks the official beginning of Durga Puja",
+                wish: "🌼 শুভ ষষ্ঠী 🌼 আজ মায়ের আবাহন। মা দুর্গার পবিত্র উপস্থিতি তোমার জীবন ভরিয়ে দিক অফুরন্ত সুখ, শান্তি আর সমৃদ্ধিতে।",
+                description: "💫 ষষ্ঠী পূজার মাধ্যমে দুর্গোৎসবের আনুষ্ঠানিক সূচনা 🌸",
             },
             {
                 day: "saptami",
                 title: "Saptami",
                 bengali: "সপ্তমী",
-                wish: "Shubho Saptami! May the goddess bless you with strength and wisdom.",
-                description: "The seventh day celebrates the warrior goddess",
+                wish: "🌺 শুভ সপ্তমী 🌺 মা দুর্গা তোমাকে দিন শক্তি, সাহস আর জ্ঞানের আলোক। জীবন ভরে উঠুক নতুন উদ্যমে আর আশীর্বাদে।",
+                description: "🌼 সপ্তমীতে পূজিত হয় শক্তির দেবী 🌟",
             },
             {
                 day: "ashtami",
                 title: "Ashtami",
                 bengali: "অষ্টমী",
-                wish: "Shubho Ashtami! May Maa Durga destroy all evil and bring peace to your life.",
-                description: "The eighth day is the most significant day of worship",
+                wish: "🌹 শুভ অষ্টমী 🌹 আজকের এই শুভ দিনে মা দুর্গা সমস্ত অশুভ শক্তির বিনাশ করুন এবং তোমার জীবনে আনুন শান্তি, আনন্দ ও আলোক।",
+                description: "✨ অষ্টমী পূজা — সবচেয়ে তাৎপর্যপূর্ণ দিন 🌼",
             },
             {
                 day: "navami",
                 title: "Navami",
                 bengali: "নবমী",
-                wish: "Shubho Navami! May the divine mother shower her choicest blessings upon you.",
-                description: "The ninth day celebrates the divine feminine power",
+                wish: "🌸 শুভ নবমী 🌸 মায়ের আশীর্বাদে ভরে উঠুক তোমার জীবন আনন্দ, ভালোবাসা আর সাফল্যে। মা দুর্গার মহাশক্তি তোমায় রক্ষা করুক সর্বদা।",
+                description: "🌺 নবমী — নারীশক্তির মহিমার পূজা 💫",
             },
             {
                 day: "dashami",
                 title: "Vijaya Dashami",
                 bengali: "বিজয়া দশমী",
-                wish: "Shubho Bijoya! May the victory of good over evil inspire you always.",
-                description: "The final day celebrating the victory of good over evil",
+                wish: "🌼 শুভ বিজয়া 🌼 অশুভের উপর শুভের জয়ের এই দিনে জীবনের প্রতিটি মুহূর্ত হোক সত্য, সাহস আর আলোর পথে। মায়ের আশীর্বাদ সর্বদা তোমার সঙ্গী হোক।",
+                description: "✨ বিজয়া দশমী — শুভ শক্তির জয়, অশুভের পরাজয় 🌸",
             },
         ];
 
@@ -96,7 +96,7 @@ class EnhancedDurgaPujaApp {
             this.updateProgress(50, this.loadingSteps[4]);
             await this.sleep(300);
 
-            await this.loadDurgaIdol();
+            // await this.loadDurgaIdol();
             this.updateProgress(65, this.loadingSteps[5]);
             await this.sleep(200);
 
@@ -119,6 +119,7 @@ class EnhancedDurgaPujaApp {
             this.animate();
             this.hideLoadingScreen();
 
+            await this.loadDurgaIdol();
             console.log("Enhanced Durga Puja experience initialized successfully");
         } catch (error) {
             console.error("Initialization error:", error);
@@ -340,7 +341,7 @@ class EnhancedDurgaPujaApp {
                 },
                 (progress) => {
                     if (progress.lengthComputable) {
-                        console.log(`Model loading: ${((progress.loaded / progress.total) * 100).toFixed(2)}%`);
+                        // console.log(`Model loading: ${((progress.loaded / progress.total) * 100).toFixed(2)}%`);
                     }
                 },
                 (error) => {
@@ -400,14 +401,63 @@ class EnhancedDurgaPujaApp {
         const frameCount = 8;
         const orbitRadius = this.frameOrbitRadius || 8;
 
-        // Create photo frames with predefined images
+        // Butterfly canvas for the first frame
+        const butterflyCanvas = document.createElement("canvas");
+        butterflyCanvas.width = 540;
+        butterflyCanvas.height = 690;
+        const butterflyCtx = butterflyCanvas.getContext("2d");
+        const butterflyTexture = new THREE.CanvasTexture(butterflyCanvas);
+        butterflyTexture.minFilter = THREE.LinearFilter;
+
+        let fc = 0;
+        // Draw butterfly curve to canvas with color/noise animation
+        function drawButterflyToCanvas() {
+            const { PI: π, E: e, sin, cos, pow } = Math;
+            const ctx = butterflyCtx;
+            const W = butterflyCanvas.width,
+                H = butterflyCanvas.height;
+            ctx.clearRect(0, 0, W, H);
+
+            ctx.save();
+            ctx.translate(W / 2, H / 2);
+            ctx.scale(7, 7);
+
+            let r,
+                x,
+                y,
+                tempx = 0,
+                tempy = 0;
+            for (let t = 0; t < 3 * π; t += 0.01) {
+                r = pow(e, sin(t)) - 2 * cos(4 * t) + pow(sin((2 * t - π) / 24), 5);
+                x = r * cos(t);
+                y = -r * sin(t);
+
+                // Colorful animated stroke for the butterfly
+                ctx.strokeStyle = `hsl(${(t * 60 + fc) % 360}, 70%, 60%)`;
+                ctx.lineWidth = 0.18 + 0.04 * sin(fc / 50);
+                ctx.beginPath();
+                ctx.moveTo(tempx, tempy);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                tempx = x;
+                tempy = y;
+            }
+            ctx.restore();
+            fc++;
+            butterflyTexture.needsUpdate = true;
+        }
+
+        // Add the butterfly animation to the render loop
+        this._updateButterflyTexture = drawButterflyToCanvas;
+
+        // Create photo frames
         for (let i = 0; i < frameCount; i++) {
             const angle = (i / frameCount) * Math.PI * 2;
             const x = Math.cos(angle) * orbitRadius;
             const z = Math.sin(angle) * orbitRadius;
             const frameHeight = 2.5;
 
-            // Frame
+            // Frame geometry/material
             const frameGeometry = new THREE.BoxGeometry(2.2, 2.7, 0.15);
             const frameMaterial = new THREE.MeshPhongMaterial({
                 color: 0xdaa520,
@@ -420,26 +470,53 @@ class EnhancedDurgaPujaApp {
             frame.lookAt(0, frameHeight, 0);
             frame.castShadow = false;
 
-            // Photo
-            const photoGeometry = new THREE.PlaneGeometry(1.8, 2.3);
-            const photoMaterial = new THREE.MeshLambertMaterial({
-                color: 0xffffff,
-                transparent: false,
-                opacity: 1,
-                depthTest: false, // <---- always visible
-            });
-            const photo = new THREE.Mesh(photoGeometry, photoMaterial);
+            // Photo geometry/material
+            let photoGeometry = new THREE.PlaneGeometry(1.8, 2.3);
+            let photoMaterial, photo;
+
+            if (i === 0) {
+                // Butterfly canvas texture for first frame
+                photoMaterial = new THREE.MeshLambertMaterial({
+                    map: butterflyTexture,
+                    transparent: false,
+                    opacity: 1,
+                    depthTest: false,
+                });
+                photo = new THREE.Mesh(photoGeometry, photoMaterial);
+            } else {
+                // Standard photo for other frames
+                photoMaterial = new THREE.MeshLambertMaterial({
+                    color: 0xffffff,
+                    transparent: false,
+                    opacity: 1,
+                    depthTest: false,
+                });
+                photo = new THREE.Mesh(photoGeometry, photoMaterial);
+
+                // Load predefined image
+                // const imageNumber = i + 1;
+                const imageNumber = i;
+                this.loadPhotoTexture(photo, `assets/images/${imageNumber}.jpg`, imageNumber);
+            }
+            if (photo) {
+                photo.userData = {}; // guarantee property exists
+                photo.userData.imageNumber = i + 1;
+                if (i === 0) {
+                    photo.userData.isButterfly = true;
+                    photo.userData.butterflyCanvas = butterflyCanvas;
+                    photo.userData.clickable = true;
+                } else {
+                    photo.userData.imagePath = `assets/images/${i + 1}.jpg`;
+                    photo.userData.clickable = true;
+                }
+            }
+
             photo.position.copy(frame.position);
             photo.position.add(new THREE.Vector3(0, 0, 0.08));
             photo.lookAt(0, frameHeight, 0);
-
-            // Load predefined image
-            const imageNumber = i + 1;
-            this.loadPhotoTexture(photo, `assets/images/${imageNumber}.jpg`, imageNumber);
-
             photo.material.depthTest = false;
-            photo.material.depthWrite = false; // prevents writing to depth buffer
-            photo.renderOrder = 10; // all photos drawn last
+            photo.material.depthWrite = false;
+            photo.renderOrder = 10;
 
             const frameData = {
                 frame,
@@ -449,7 +526,7 @@ class EnhancedDurgaPujaApp {
                 orbitSpeed: 0.002 + Math.random() * 0.001,
                 floatOffset: Math.random() * Math.PI * 2,
                 floatAmplitude: 0.3 + Math.random() * 0.2,
-                imageNumber,
+                imageNumber: i + 1,
             };
 
             this.photoFrames.push(frameData);
@@ -457,11 +534,129 @@ class EnhancedDurgaPujaApp {
             this.scene.add(photo);
         }
 
-        // Setup mobile gallery
+        // Setup mobile gallery if needed
         this.setupMobileGallery();
-
         console.log("Photo memories setup complete");
     }
+    // setupPhotoMemories() {
+    //     this.photoFrames = [];
+    //     const frameCount = 8;
+    //     const orbitRadius = this.frameOrbitRadius || 8;
+
+    //     // Create butterfly offscreen canvas and texture
+    //     const butterflyCanvas = document.createElement("canvas");
+    //     butterflyCanvas.width = 540;
+    //     butterflyCanvas.height = 690;
+    //     const butterflyCtx = butterflyCanvas.getContext("2d");
+    //     const butterflyTexture = new THREE.CanvasTexture(butterflyCanvas);
+    //     butterflyTexture.minFilter = THREE.LinearFilter;
+
+    //     let fc = 0;
+    //     // Butterfly drawing function
+    //     const drawButterflyToCanvas = () => {
+    //         const { PI: π, E: e, sin, cos, pow } = Math;
+    //         const ctx = butterflyCtx;
+    //         const W = butterflyCanvas.width,
+    //             H = butterflyCanvas.height;
+    //         ctx.clearRect(0, 0, W, H);
+
+    //         ctx.save();
+    //         ctx.translate(W / 2, H / 2);
+    //         ctx.scale(7, 7);
+
+    //         let r,
+    //             x,
+    //             y,
+    //             tempx = 0,
+    //             tempy = 0;
+    //         for (let t = 0; t < 3 * π; t += 0.01) {
+    //             r = pow(e, sin(t)) - 2 * cos(4 * t) + pow(sin((2 * t - π) / 24), 5);
+    //             x = r * cos(t);
+    //             y = -r * sin(t);
+
+    //             ctx.strokeStyle = `hsl(${(t * 60 + fc) % 360}, 70%, 60%)`;
+    //             ctx.lineWidth = 0.18 + 0.04 * sin(fc / 50);
+    //             ctx.beginPath();
+    //             ctx.moveTo(tempx, tempy);
+    //             ctx.lineTo(x, y);
+    //             ctx.stroke();
+    //             tempx = x;
+    //             tempy = y;
+    //         }
+    //         ctx.restore();
+
+    //         fc++;
+    //         butterflyTexture.needsUpdate = true;
+    //     };
+
+    //     this.updateButterflyTexture = drawButterflyToCanvas;
+    //     this.butterflyCanvas = butterflyCanvas; // store for modal
+
+    //     for (let i = 0; i < frameCount; i++) {
+    //         const angle = (i / frameCount) * Math.PI * 2;
+    //         const x = Math.cos(angle) * orbitRadius;
+    //         const z = Math.sin(angle) * orbitRadius;
+    //         const frameHeight = 2.5;
+
+    //         const frameGeometry = new THREE.BoxGeometry(2.2, 2.7, 0.15);
+    //         const frameMaterial = new THREE.MeshPhongMaterial({
+    //             color: 0xdaa520,
+    //             shininess: 80,
+    //             emissive: 0xdaa520,
+    //             emissiveIntensity: 0.1,
+    //         });
+    //         const frame = new THREE.Mesh(frameGeometry, frameMaterial);
+    //         frame.position.set(x, frameHeight, z);
+    //         frame.lookAt(0, frameHeight, 0);
+    //         frame.castShadow = false;
+
+    //         const photoGeometry = new THREE.PlaneGeometry(1.8, 2.3);
+    //         let photoMaterial, photo;
+
+    //         if (i === 0) {
+    //             // Use animated butterfly canvas texture
+    //             photoMaterial = new THREE.MeshLambertMaterial({
+    //                 map: butterflyTexture,
+    //                 transparent: false,
+    //                 depthTest: false,
+    //             });
+    //             photo = new THREE.Mesh(photoGeometry, photoMaterial);
+    //             photo.userData = {
+    //                 isButterfly: true,
+    //                 clickable: true,
+    //                 imageNumber: i + 1,
+    //             };
+    //         } else {
+    //             photoMaterial = new THREE.MeshLambertMaterial({
+    //                 color: 0xffffff,
+    //                 transparent: false,
+    //                 depthTest: false,
+    //             });
+    //             photo = new THREE.Mesh(photoGeometry, photoMaterial);
+    //             // Load static photo asynchronously
+    //             const imageNumber = i + 1;
+    //             this.loadPhotoTexture(photo, `assets/images/${imageNumber}.jpg`, imageNumber);
+    //             photo.userData = {
+    //                 imagePath: `assets/images/${imageNumber}.jpg`,
+    //                 clickable: true,
+    //                 imageNumber,
+    //             };
+    //         }
+
+    //         photo.position.copy(frame.position);
+    //         photo.position.add(new THREE.Vector3(0, 0, 0.08));
+    //         photo.lookAt(0, frameHeight, 0);
+    //         photo.material.depthWrite = false;
+    //         photo.renderOrder = 10;
+
+    //         this.photoFrames.push({ frame, photo, angle, baseHeight: frameHeight });
+    //         this.scene.add(frame);
+    //         this.scene.add(photo);
+    //     }
+
+    //     this.setupMobileGallery();
+    //     console.log("Photo memories setup complete");
+    // }
 
     loadPhotoTexture(photo, imagePath, imageNumber) {
         const loader = new THREE.TextureLoader();
@@ -804,35 +999,114 @@ class EnhancedDurgaPujaApp {
 
         if (intersects.length > 0) {
             const intersected = intersects[0].object;
+            // if (intersected.userData.clickable) {
+            //     this.openPhotoModal(intersected.userData.imagePath, intersected.userData.imageNumber);
+            // }
             if (intersected.userData.clickable) {
-                this.openPhotoModal(intersected.userData.imagePath, intersected.userData.imageNumber);
+                if (intersected.userData.isButterfly) {
+                    this.openPhotoModal(intersected.userData.butterflyCanvas, intersected.userData.imageNumber);
+                } else {
+                    this.openPhotoModal(intersected.userData.imagePath, intersected.userData.imageNumber);
+                }
             }
         }
     }
 
-    openPhotoModal(imagePath, imageNumber) {
+    // openPhotoModal(imageSource, imageNumber) {
+    //     const modal = document.getElementById("photo-modal");
+    //     const modalImage = document.getElementById("modal-image");
+    //     const modalWishTitle = document.getElementById("modal-wish-title");
+    //     const modalWishText = document.getElementById("modal-wish-text");
+
+    //     if (modal && modalImage && modalWishTitle && modalWishText) {
+    //         // New logic: detect if source is a canvas (butterfly) or image path
+    //         if (typeof imageSource === "string") {
+    //             // Standard image frame
+    //             modalImage.src = imageSource;
+    //             modalImage.style.display = "";
+    //         } else if (imageSource instanceof HTMLCanvasElement) {
+    //             // Butterfly canvas frame
+    //             // Show canvas in modal, hide img element
+    //             modalImage.style.display = "none";
+    //             // Remove old canvas if present
+    //             let oldCanvas = document.getElementById("modal-butterfly-canvas");
+    //             if (oldCanvas) oldCanvas.remove();
+    //             // // Clone butterfly canvas and style it
+    //             // let butterflyClone = imageSource.cloneNode(true);
+    //             // butterflyClone.id = "modal-butterfly-canvas";
+    //             // butterflyClone.style.width = "100%";
+    //             // butterflyClone.style.height = "auto";
+    //             // modalImage.parentNode.appendChild(butterflyClone);
+    //             // Show original canvas directly:
+    //             butterflyCanvas.id = "modal-butterfly-canvas"; // ensure id is set
+    //             butterflyCanvas.style.width = "100%";
+    //             butterflyCanvas.style.height = "auto";
+    //             modalImage.parentNode.appendChild(butterflyCanvas);
+    //         }
+
+    //         modalWishTitle.textContent = `Festival Memory ${imageNumber}`;
+    //         const currentDayData = this.durgaPujaDays.find((day) => day.day === this.currentDay);
+    //         if (currentDayData) modalWishText.textContent = currentDayData.wish;
+
+    //         modal.classList.remove("hidden");
+    //     }
+    // }
+
+    // closeModal() {
+    //     const modal = document.getElementById("photo-modal");
+    //     if (modal) {
+    //         modal.classList.add("hidden");
+    //     }
+    // }
+    openPhotoModal(imageSource, imageNumber) {
         const modal = document.getElementById("photo-modal");
         const modalImage = document.getElementById("modal-image");
         const modalWishTitle = document.getElementById("modal-wish-title");
         const modalWishText = document.getElementById("modal-wish-text");
 
-        if (modal && modalImage && modalWishTitle && modalWishText) {
-            modalImage.src = imagePath;
-            modalWishTitle.textContent = `Festival Memory ${imageNumber}`;
+        if (!modal || !modalImage || !modalWishTitle || !modalWishText) return;
 
-            const currentDayData = this.durgaPujaDays.find((day) => day.day === this.currentDay);
-            if (currentDayData) {
-                modalWishText.textContent = currentDayData.wish;
-            }
+        // Clear any previous modal butterfly canvas
+        const oldCanvas = document.getElementById("modal-butterfly-canvas");
+        if (oldCanvas) oldCanvas.remove();
 
-            modal.classList.remove("hidden");
+        if (typeof imageSource === "string") {
+            // Normal photo
+            modalImage.src = imageSource;
+            modalImage.style.display = "";
+        } else if (imageSource instanceof HTMLCanvasElement) {
+            // Butterfly canvas, show original canvas, no clone to keep animation
+            modalImage.style.display = "none";
+            imageSource.id = "modal-butterfly-canvas";
+            imageSource.style.width = "100%";
+            imageSource.style.height = "auto";
+            modalImage.parentNode.appendChild(imageSource);
         }
+
+        modalWishTitle.textContent = `Festival Memory ${imageNumber}`;
+        const currentDayData = this.durgaPujaDays.find((day) => day.day === this.currentDay);
+        modalWishText.textContent = currentDayData ? currentDayData.wish : "";
+
+        modal.classList.remove("hidden");
     }
 
     closeModal() {
         const modal = document.getElementById("photo-modal");
-        if (modal) {
-            modal.classList.add("hidden");
+        const modalImage = document.getElementById("modal-image");
+        const butterflyCanvas = document.getElementById("modal-butterfly-canvas");
+
+        if (modal) modal.classList.add("hidden");
+
+        if (modalImage) modalImage.style.display = "";
+
+        if (butterflyCanvas) {
+            // Move butterfly canvas back off-screen to prevent loss of reference
+            butterflyCanvas.remove();
+
+            // Append back to offscreen container if needed or keep reference in app
+            // For this example assume you have a hidden container div to reattach
+            const offscreenContainer = document.getElementById("offscreen-canvas-container");
+            if (offscreenContainer) offscreenContainer.appendChild(butterflyCanvas);
         }
     }
 
@@ -1075,6 +1349,11 @@ class EnhancedDurgaPujaApp {
     animate() {
         requestAnimationFrame(() => this.animate());
 
+        // Call butterfly texture update if exists
+        if (typeof this.updateButterflyTexture === "function") {
+            this.updateButterflyTexture();
+        }
+
         // Update all systems
         this.updateStarField();
         this.updatePhotoFrames();
@@ -1085,7 +1364,6 @@ class EnhancedDurgaPujaApp {
         if (this.controls) {
             this.controls.update();
         }
-
         // Render the scene
         this.renderer.render(this.scene, this.camera);
     }
