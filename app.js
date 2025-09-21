@@ -474,15 +474,8 @@ class EnhancedDurgaPujaApp {
             let photoGeometry = new THREE.PlaneGeometry(1.8, 2.3);
             let photoMaterial, photo;
 
-            if (i === 0) {
+            if (i === -1) {
                 // Butterfly canvas texture for first frame
-                photoMaterial = new THREE.MeshLambertMaterial({
-                    map: butterflyTexture,
-                    transparent: false,
-                    opacity: 1,
-                    depthTest: false,
-                });
-                photo = new THREE.Mesh(photoGeometry, photoMaterial);
             } else {
                 // Standard photo for other frames
                 photoMaterial = new THREE.MeshLambertMaterial({
@@ -501,10 +494,8 @@ class EnhancedDurgaPujaApp {
             if (photo) {
                 photo.userData = {}; // guarantee property exists
                 photo.userData.imageNumber = i + 1;
-                if (i === 0) {
-                    photo.userData.isButterfly = true;
-                    photo.userData.butterflyCanvas = butterflyCanvas;
-                    photo.userData.clickable = true;
+                if (i === -1) {
+                    photo.userData.clickable = false;
                 } else {
                     photo.userData.imagePath = `assets/images/${i + 1}.jpg`;
                     photo.userData.clickable = true;
@@ -538,125 +529,6 @@ class EnhancedDurgaPujaApp {
         this.setupMobileGallery();
         console.log("Photo memories setup complete");
     }
-    // setupPhotoMemories() {
-    //     this.photoFrames = [];
-    //     const frameCount = 8;
-    //     const orbitRadius = this.frameOrbitRadius || 8;
-
-    //     // Create butterfly offscreen canvas and texture
-    //     const butterflyCanvas = document.createElement("canvas");
-    //     butterflyCanvas.width = 540;
-    //     butterflyCanvas.height = 690;
-    //     const butterflyCtx = butterflyCanvas.getContext("2d");
-    //     const butterflyTexture = new THREE.CanvasTexture(butterflyCanvas);
-    //     butterflyTexture.minFilter = THREE.LinearFilter;
-
-    //     let fc = 0;
-    //     // Butterfly drawing function
-    //     const drawButterflyToCanvas = () => {
-    //         const { PI: π, E: e, sin, cos, pow } = Math;
-    //         const ctx = butterflyCtx;
-    //         const W = butterflyCanvas.width,
-    //             H = butterflyCanvas.height;
-    //         ctx.clearRect(0, 0, W, H);
-
-    //         ctx.save();
-    //         ctx.translate(W / 2, H / 2);
-    //         ctx.scale(7, 7);
-
-    //         let r,
-    //             x,
-    //             y,
-    //             tempx = 0,
-    //             tempy = 0;
-    //         for (let t = 0; t < 3 * π; t += 0.01) {
-    //             r = pow(e, sin(t)) - 2 * cos(4 * t) + pow(sin((2 * t - π) / 24), 5);
-    //             x = r * cos(t);
-    //             y = -r * sin(t);
-
-    //             ctx.strokeStyle = `hsl(${(t * 60 + fc) % 360}, 70%, 60%)`;
-    //             ctx.lineWidth = 0.18 + 0.04 * sin(fc / 50);
-    //             ctx.beginPath();
-    //             ctx.moveTo(tempx, tempy);
-    //             ctx.lineTo(x, y);
-    //             ctx.stroke();
-    //             tempx = x;
-    //             tempy = y;
-    //         }
-    //         ctx.restore();
-
-    //         fc++;
-    //         butterflyTexture.needsUpdate = true;
-    //     };
-
-    //     this.updateButterflyTexture = drawButterflyToCanvas;
-    //     this.butterflyCanvas = butterflyCanvas; // store for modal
-
-    //     for (let i = 0; i < frameCount; i++) {
-    //         const angle = (i / frameCount) * Math.PI * 2;
-    //         const x = Math.cos(angle) * orbitRadius;
-    //         const z = Math.sin(angle) * orbitRadius;
-    //         const frameHeight = 2.5;
-
-    //         const frameGeometry = new THREE.BoxGeometry(2.2, 2.7, 0.15);
-    //         const frameMaterial = new THREE.MeshPhongMaterial({
-    //             color: 0xdaa520,
-    //             shininess: 80,
-    //             emissive: 0xdaa520,
-    //             emissiveIntensity: 0.1,
-    //         });
-    //         const frame = new THREE.Mesh(frameGeometry, frameMaterial);
-    //         frame.position.set(x, frameHeight, z);
-    //         frame.lookAt(0, frameHeight, 0);
-    //         frame.castShadow = false;
-
-    //         const photoGeometry = new THREE.PlaneGeometry(1.8, 2.3);
-    //         let photoMaterial, photo;
-
-    //         if (i === 0) {
-    //             // Use animated butterfly canvas texture
-    //             photoMaterial = new THREE.MeshLambertMaterial({
-    //                 map: butterflyTexture,
-    //                 transparent: false,
-    //                 depthTest: false,
-    //             });
-    //             photo = new THREE.Mesh(photoGeometry, photoMaterial);
-    //             photo.userData = {
-    //                 isButterfly: true,
-    //                 clickable: true,
-    //                 imageNumber: i + 1,
-    //             };
-    //         } else {
-    //             photoMaterial = new THREE.MeshLambertMaterial({
-    //                 color: 0xffffff,
-    //                 transparent: false,
-    //                 depthTest: false,
-    //             });
-    //             photo = new THREE.Mesh(photoGeometry, photoMaterial);
-    //             // Load static photo asynchronously
-    //             const imageNumber = i + 1;
-    //             this.loadPhotoTexture(photo, `assets/images/${imageNumber}.jpg`, imageNumber);
-    //             photo.userData = {
-    //                 imagePath: `assets/images/${imageNumber}.jpg`,
-    //                 clickable: true,
-    //                 imageNumber,
-    //             };
-    //         }
-
-    //         photo.position.copy(frame.position);
-    //         photo.position.add(new THREE.Vector3(0, 0, 0.08));
-    //         photo.lookAt(0, frameHeight, 0);
-    //         photo.material.depthWrite = false;
-    //         photo.renderOrder = 10;
-
-    //         this.photoFrames.push({ frame, photo, angle, baseHeight: frameHeight });
-    //         this.scene.add(frame);
-    //         this.scene.add(photo);
-    //     }
-
-    //     this.setupMobileGallery();
-    //     console.log("Photo memories setup complete");
-    // }
 
     loadPhotoTexture(photo, imagePath, imageNumber) {
         const loader = new THREE.TextureLoader();
